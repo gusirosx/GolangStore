@@ -35,35 +35,24 @@ func initializeRoutes() {
 
 	// Handle the index route
 	router.GET("/", handlers.ShowIndexPage)
-	/* Grouping routes together allows you to apply middleware on
-	all routes in a group instead of doing so separately for each route.
-	In the above snippet, the first route will use the showRegistrationPage
-	function to display the registration page at the /u/register path.
-	The second route will handle all the POST requests to the same path,
-	making use of the registerroute handler. */
+	/* Grouping routes together allows you to apply middleware on all
+	   routes in a group instead of doing so separately for each route. */
+	/*
+		EnsureNotLoggedIn -> Ensures that the user is not logged in by using the middleware function
+		EnsureLoggedIn    -> Ensure that the user is logged in by using the middleware
+	*/
 	// Group user related routes together
 	userRoutes := router.Group("/u")
 	{
-		// Handle the GET requests at /u/login
-		// Show the login page
-		// Ensure that the user is not logged in by using the middleware
+		// Handle the GET requests at /u/login and show the login page
 		userRoutes.GET("/login", middleware.EnsureNotLoggedIn(), handlers.ShowLoginPage)
-
 		// Handle POST requests at /u/login
-		// Ensure that the user is not logged in by using the middleware
 		userRoutes.POST("/login", middleware.EnsureNotLoggedIn(), handlers.PerformLogin)
-
 		// Handle GET requests at /u/logout
-		// Ensure that the user is logged in by using the middleware
 		userRoutes.GET("/logout", middleware.EnsureLoggedIn(), handlers.Logout)
-
-		// Handle the GET requests at /u/register
-		// Show the registration page
-		// Ensure that the user is not logged in by using the middleware
+		// Handle the GET requests at /u/register and show the registration page
 		userRoutes.GET("/register", middleware.EnsureNotLoggedIn(), handlers.ShowRegistrationPage)
-
 		// Handle POST requests at /u/register
-		// Ensure that the user is not logged in by using the middleware
 		userRoutes.POST("/register", middleware.EnsureNotLoggedIn(), handlers.Register)
 	}
 
@@ -72,14 +61,12 @@ func initializeRoutes() {
 	{
 		// Handle GET requests at /article/view/some_article_id
 		articleRoutes.GET("/view/:article_id", handlers.GetArticle)
-
-		/* Handle the GET requests at /article/create Show the article creation
-		page. Ensure that the user is logged in by using the middleware*/
+		// Handle the GET requests at /article/create Show the article creation
 		articleRoutes.GET("/create", middleware.EnsureLoggedIn(), handlers.ShowArticleCreationPage)
-
-		/* Handle POST requests at /article/create Ensure that the user is
-		logged in by using the middleware */
+		// Handle POST requests at /article/create
 		articleRoutes.POST("/create", middleware.EnsureLoggedIn(), handlers.CreateArticle)
+		// articleRoutes.GET("/delete/:article_id", middleware.EnsureLoggedIn(), handlers.DeleteArticlePage)
+		// articleRoutes.GET("/delete", middleware.EnsureLoggedIn(), handlers.ShowArticleDeletePage)
 	}
 
 }
