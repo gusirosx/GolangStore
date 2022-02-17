@@ -69,4 +69,6 @@ func initializeRoutes() {
 		// articleRoutes.GET("/delete", middleware.EnsureLoggedIn(), handlers.ShowArticleDeletePage)
 	}
 
+	router.GET("/products", handlers.IndexPage)
+
 }

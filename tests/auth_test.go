@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"gin-web-framework/middleware"
+	"GolangStore/middleware"
 	"net/http"
 	"net/http/httptest"
 	"testing"

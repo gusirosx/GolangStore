@@ -1,11 +1,11 @@
 package tests
 
 import (
+	"GolangStore/handlers"
+	"GolangStore/middleware"
+	"GolangStore/models"
 	"encoding/json"
 	"encoding/xml"
-	"gin-web-framework/handlers"
-	"gin-web-framework/middleware"
-	"gin-web-framework/models"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
